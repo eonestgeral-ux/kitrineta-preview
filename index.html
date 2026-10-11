@@ -898,11 +898,13 @@ footer.end small{display:block;margin-top:1rem;font-weight:400}
   #galeria>.pin-in>.gp:nth-child(3)>.gc.a,
   #galeria>.pin-in>.gp:nth-child(3)>.gc.c,
   #kits>.gd.r:nth-child(4){right:auto;bottom:auto;margin:0;translate:-50% -50%}
-  #hero>.h-stage>.side-r{left:111.2%;top:51.3%;height:min(52.9cqw,31.8cqh)}
-  #hero>.h-stage>.hp.s1{left:29.9%;top:20.2%;height:min(43.3cqw,26cqh)}
-  #hero>.h-stage>.side-l{left:9.8%;top:67.2%;height:min(55.1cqw,33.1cqh)}
-  #hero>.h-stage>.hp.s2{left:85.7%;top:22.9%;height:min(32.2cqw,19.4cqh)}
-  #hero>.h-stage>.hp.big{left:53.1%;top:50.1%;height:min(80.1cqw,48.1cqh)}
+  /* o grupo de fotos do topo escala como um bloco: medidas do ecrã 2195×1108 (palco 552×918) × --u */
+  .h-stage{--u:calc(min(100cqw / 552, 100cqh / 918) * var(--hk,1.12))}
+  #hero>.h-stage>.side-r{left:calc(50% + 338*var(--u));top:calc(50% + 12*var(--u));height:calc(292*var(--u))}
+  #hero>.h-stage>.hp.s1{left:calc(50% - 111*var(--u));top:calc(50% - 274*var(--u));height:calc(239*var(--u))}
+  #hero>.h-stage>.side-l{left:calc(50% - 222*var(--u));top:calc(50% + 158*var(--u));height:calc(304*var(--u))}
+  #hero>.h-stage>.hp.s2{left:calc(50% + 197*var(--u));top:calc(50% - 249*var(--u));height:calc(178*var(--u))}
+  #hero>.h-stage>.hp.big{left:calc(50% + 17*var(--u));top:calc(50% + 1*var(--u));height:calc(442*var(--u))}
   .hero-txt{flex:0 0 52.6%}
   #hero>.gd.l{left:calc(50% + -0.238*var(--cw));top:40.9%!important;bottom:auto!important;width:calc(0.16*var(--cw))}
   #historia>.pin-in>.ph:nth-child(5)>.act.r{left:calc(50% + 0.398*var(--cw));top:52.3%;height:46.9vh}
@@ -954,7 +956,19 @@ footer.end small{display:block;margin-top:1rem;font-weight:400}
   .gdn{top:calc(66% + 5vh)}
   .gfoot{top:calc(66% + 5vh + 6.4rem)}
 }
-@media (min-width:1000px) and (max-width:1499px){#hero>.h-stage>.side-r{left:94%}}
+@media (min-width:2000px){.h-stage{--hk:1}}
+/* telemóveis grandes e tablets: o grupo do topo não se espalha até às bordas (o telemóvel normal não muda) */
+@media (min-width:480px) and (max-width:999px){
+  /* o mesmo grupo do telemóvel (palco 375×427), só que maior: não se espalha até às bordas */
+  .h-stage{width:min(100%,600px);--m:calc(min(100cqw / 375, 100cqh / 427) * 1.05)}
+  .hero h1{font-size:min(12.4vw,11svh)}
+  #hero .h-stage>.hp,#hero .h-stage>.side-l,#hero .h-stage>.side-r{right:auto;bottom:auto;translate:-50% -50%}
+  #hero .h-stage>.hp.big{left:50%;top:calc(50% - 82*var(--m));height:calc(263*var(--m))}
+  #hero .h-stage>.hp.s1{left:calc(50% - 129*var(--m));top:calc(50% - 159*var(--m));height:calc(109*var(--m))}
+  #hero .h-stage>.hp.s2{left:calc(50% + 133*var(--m));top:calc(50% - 146*var(--m));height:calc(101*var(--m))}
+  #hero .h-stage>.side-l{left:calc(50% - 124*var(--m));top:calc(50% + 101*var(--m));height:calc(225*var(--m))}
+  #hero .h-stage>.side-r{left:calc(50% + 121*var(--m));top:calc(50% + 101*var(--m));height:calc(225*var(--m))}
+}
 /* Animação das personagens Kitrineta — partes do corpo, personagem fixa no lugar. */
 .ch{display:block;width:100%;height:auto;overflow:visible}
 .ch path,.ch g{transform-box:view-box}
