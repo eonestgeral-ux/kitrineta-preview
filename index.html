@@ -350,6 +350,10 @@ html.intro .intro,.intro.out{display:grid}
 @media (min-width:860px){.kits{grid-template-columns:1fr 1fr}}
 .card{background:#fff;border-radius:36px;overflow:hidden;box-shadow:0 22px 44px -26px rgba(74,44,23,.42);display:grid;grid-template-rows:auto 1fr;min-width:0;scroll-margin-top:110px;transition:transform .4s var(--boing)}
 .card:hover{transform:translateY(-6px)}
+/* os cartões dos kits sobem ao aparecer (em vez de surgirem de repente) */
+.card.rv{transition:opacity .7s ease,transform 1s var(--ease)}
+.card.rv:not(.in){opacity:0;transform:translateY(90px)}
+#k-dino.rv{transition-delay:.15s}
 .card .img{aspect-ratio:5/4;background-size:cover;background-position:center;position:relative;overflow:hidden}
 .card .img::after{content:"";position:absolute;left:-2%;right:-2%;bottom:-1px;height:30px;background:#fff;border-radius:50% 50% 0 0/100% 100% 0 0}
 .card .badge{position:absolute;z-index:2;top:16px;left:16px;width:74px;aspect-ratio:1;border-radius:50%;background:var(--laranja-forte);color:#fff;display:grid;place-items:center;font-family:var(--display);font-size:1.3rem;transform:rotate(-14deg);animation:bob 3s ease-in-out infinite}
@@ -461,7 +465,7 @@ html:not(.js) .chips li,html:not(.js) .disc{opacity:1;transform:none;scale:1}
 .sp.p5{width:32%;aspect-ratio:1;right:0;bottom:4%;--d:6.5s}
 .heart{width:100%;display:block;animation:beat 2.4s ease-in-out infinite;transform-origin:50% 60%}
 @keyframes beat{0%,40%,100%{transform:scale(1)}12%{transform:scale(1.1)}24%{transform:scale(.96)}32%{transform:scale(1.06)}}
-.story .big{font-family:var(--display);font-size:clamp(1.55rem,6.4vw,2.5rem);letter-spacing:-.03em;line-height:1.12;margin:1rem 0 0;max-width:24ch}
+.story .big{font-family:var(--display);font-size:clamp(1.35rem,5.6vw,2.15rem);letter-spacing:.01em;line-height:1.12;margin:1rem 0 0;max-width:24ch}
 @media (min-width:860px){.story .wrap{grid-template-columns:1fr 1fr;column-gap:56px;align-items:center}.sph{grid-row:1/span 2;grid-column:2}}
 
 /* ---------- newsletter (branco) ---------- */
@@ -1004,9 +1008,9 @@ footer.end small{display:block;margin-top:1rem;font-weight:400}
   .h-stage{--m:min(100cqw / 375, 100cqh / 427)}
   @media (min-width:480px){.h-stage{--m:calc(min(100cqw / 375, 100cqh / 427) * 1.05)}}
   #hero .h-stage>.hp,#hero .h-stage>.side-l,#hero .h-stage>.side-r{right:auto;bottom:auto;translate:-50% -50%}
-  #hero .h-stage>.hp.big{left:50%;top:calc(50% - 82*var(--m));height:calc(263*var(--m))}
-  #hero .h-stage>.hp.s1{left:calc(50% - 129*var(--m));top:calc(50% - 159*var(--m));height:calc(109*var(--m))}
-  #hero .h-stage>.hp.s2{left:calc(50% + 133*var(--m));top:calc(50% - 146*var(--m));height:calc(101*var(--m))}
+  #hero .h-stage>.hp.big{left:50%;top:calc(50% + 16*var(--m));height:calc(380*var(--m))}
+  #hero .h-stage>.hp.s1{left:calc(50% - 150*var(--m));top:calc(50% - 150*var(--m));height:calc(124*var(--m))}
+  #hero .h-stage>.hp.s2{left:calc(50% + 150*var(--m));top:calc(50% - 140*var(--m));height:calc(116*var(--m))}
   #hero .h-stage>.side-l{left:calc(50% - 124*var(--m));top:calc(50% + 101*var(--m));height:calc(225*var(--m))}
   #hero .h-stage>.side-r{left:calc(50% + 121*var(--m));top:calc(50% + 101*var(--m));height:calc(225*var(--m))}
 }
@@ -3085,10 +3089,10 @@ document.documentElement.classList.add('js');
     });
     var gr = gal.getBoundingClientRect();
     if(gr.bottom > -vh && gr.top < 2 * vh && GL){
-      var gp = clamp(-gr.top / (gr.height - vh), 0, 1), gn = gws.length, f = gp * gn;
-      var gi = Math.min(gn - 1, Math.floor(f)), sc = gsea.clientWidth / 1000;
+      var gp = clamp(-gr.top / (gr.height - vh), 0, 1), gn = gws.length, f = gp * (gn - 1);
+      var gi = Math.min(gn - 1, Math.round(f)), sc = gsea.clientWidth / 1000;
       gws.forEach(function(g, i){
-        var x = RM ? (i === gi ? (W - GT[i]) / 2 : W + 40) : slide(f - i - .5, GT[i], W), cx = (x + GWW[i] / 2) / sc;
+        var x = RM ? (i === gi ? (W - GT[i]) / 2 : W + 40) : slide(f - i, GT[i], W), cx = (x + GWW[i] / 2) / sc;
         var y = waveY(cx) * sc - (W >= 1000 ? W * .018 : 0), ang = Math.atan2(waveY(cx + 12) - waveY(cx - 12), 24) * 34;
         g.style.transform = 'translate(' + x.toFixed(1) + 'px,' + (y - GH[i]).toFixed(1) + 'px) rotate(' + ang.toFixed(1) + 'deg)';
       });
