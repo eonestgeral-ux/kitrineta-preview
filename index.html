@@ -1022,8 +1022,10 @@ footer.end small{display:block;margin-top:1rem;font-weight:400}
 }
 /* telemóvel: nas frases presas o texto fica a meio do ecrã e a personagem desce para o fundo (fora do fluxo) */
 @media (max-width:999px){
-  /* o bloco (ícone/número até ao botão) fica exatamente a meio do ecrã visível, por baixo do menu; dvh acompanha a barra do browser */
-  .pin .ph,.walk .ph{bottom:auto;height:100vh;height:100dvh;padding-top:var(--top);padding-bottom:0}
+  /* o bloco (ícone/número até ao botão) fica exatamente a meio entre o fim da faixa dos anúncios (34px) e o fundo do ecrã visível; dvh acompanha a barra do browser */
+  .pin .ph,.walk .ph{bottom:auto;height:100vh;height:100dvh;padding-top:34px;padding-bottom:0}
+  /* as personagens passam à frente do texto e dos botões */
+  .pin .ph>.act,.pin .ph>.duo{z-index:6}
   .pin .ph>.act{position:absolute;left:0;right:0;margin-inline:auto;width:max-content;bottom:calc(100lvh - 100dvh + 10px)}
   .pin .ph>.duo{position:absolute;left:0;right:0;justify-content:center;bottom:calc(100lvh - 100dvh + 10px)}
   .walk .ph>.act,.walk .ph:not(.on)>.act{height:clamp(110px,17svh,210px)}
