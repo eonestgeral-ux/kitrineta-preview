@@ -264,7 +264,7 @@ html.intro .intro,.intro.out{display:grid}
 
 /* ---------- frases presas ao scroll ---------- */
 .pin{height:calc(var(--n,3)*90svh + 30svh)}
-.pin-in{position:sticky;top:0;height:100svh;overflow:clip;display:grid;place-items:center}
+.pin-in{position:sticky;top:0;height:100vh;height:100lvh;overflow:clip;display:grid;place-items:center}
 .ring-bg{position:absolute;left:50%;top:50%;width:min(150vw,1000px);aspect-ratio:1;translate:-50% -50%;transform:rotate(calc(var(--sp,0)*150deg)) scale(calc(.85 + var(--sp,0)*.3));pointer-events:none}
 .pin.rev .ring-bg{transform:rotate(calc(var(--sp,0)*-150deg)) scale(calc(1.12 - var(--sp,0)*.26))}
 .ring-bg>svg{position:absolute;inset:0;width:100%;height:100%;display:block;fill:#fff}
@@ -531,6 +531,11 @@ footer.end small{display:block;margin-top:1rem;font-weight:400}
 .coupon-f .btn{min-height:46px;padding:0 1rem;font-size:.95rem}
 .sum .pay{font-size:.82rem;text-align:center;margin:0}
 .sum .btn.p{width:100%}
+/* carrinho: ondas em baixo e bolhas a subir, por trás do conteúdo */
+.drawer .panel>header,.items-c,.sum{position:relative;z-index:2}
+.sum{padding-bottom:96px}
+.cart-deco{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.cart-deco .sea{position:absolute;left:0;right:0;bottom:-2px;height:84px;overflow:hidden}
 
 /* ---------- pop-up do novo kit ---------- */
 .pop{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;visibility:hidden}
@@ -1014,6 +1019,13 @@ footer.end small{display:block;margin-top:1rem;font-weight:400}
   #hero .h-stage>.hp.s2{left:calc(50% + var(--ctah) - 79*var(--m));top:calc(50% - 110*var(--m));height:calc(158*var(--m))}
   #hero .h-stage>.side-l{left:calc(50% - var(--ctah) + 72.3*var(--m));top:calc(50% + 101*var(--m));height:calc(225*var(--m))}
   #hero .h-stage>.side-r{left:calc(50% + var(--ctah) - 82.2*var(--m));top:calc(50% + 101*var(--m));height:calc(225*var(--m))}
+}
+/* telemóvel: nas frases presas o texto fica a meio do ecrã e a personagem desce para o fundo (fora do fluxo) */
+@media (max-width:999px){
+  .pin .ph>.act{position:absolute;left:0;right:0;margin-inline:auto;width:max-content;bottom:calc(100lvh - 100svh + 10px)}
+  .pin .ph>.duo{position:absolute;left:0;right:0;justify-content:center;bottom:calc(100lvh - 100svh + 10px)}
+  .walk .ph>.act,.walk .ph:not(.on)>.act{height:clamp(110px,17svh,210px)}
+  .walk .ph{padding-bottom:calc(20px + 4svh)}
 }
 /* Animação das personagens Kitrineta — partes do corpo, personagem fixa no lugar. */
 .ch{display:block;width:100%;height:auto;overflow:visible}
@@ -2794,6 +2806,7 @@ document.documentElement.classList.add('js');
       <button class="btn p" type="button" id="checkout">Finalizar compra <i class="fa-solid fa-lock"></i></button>
       <p class="pay">MB WAY · Multibanco · Cartão · Klarna</p>
     </div>
+    <div class="cart-deco" aria-hidden="true"><div class="bubbles tint" data-n="9"></div><div class="sea" id="cartSea"></div></div>
   </aside>
 </div>
 
@@ -2938,7 +2951,7 @@ document.documentElement.classList.add('js');
     w.appendChild(svgWave('w2', wavePath(36, 480, 240 + (n % 2) * 120, 40), mix(a, b, .45)));
     w.appendChild(svgWave('w1', wavePath(32, 480, (n % 2) * 120, 60), b));
   });
-  [['#sea', '#A6E3F0', '#5BAFC4'], ['#ovSea', '#A6E3F0', '#7CCFE1']].forEach(function(c){
+  [['#sea', '#A6E3F0', '#5BAFC4'], ['#ovSea', '#A6E3F0', '#7CCFE1'], ['#cartSea', '#A6E3F0', '#7CCFE1']].forEach(function(c){
     var s = $(c[0]); s.appendChild(svgWave('s2', wavePath(24, 360, 180, 40), c[1])); s.appendChild(svgWave('s1', wavePath(26, 360, 0, 40), c[2]));
   });
 
