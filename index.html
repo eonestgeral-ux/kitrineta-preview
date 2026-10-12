@@ -959,9 +959,12 @@ footer.end small{display:block;margin-top:1rem;font-weight:400}
 }
 @media (min-width:2000px){.h-stage{--hk:1}}
 /* v12 — topo: a disposição do ecrã grande (2195×1108) à escala em todos os desktops (--k = 1 nesse ecrã) */
+@property --k{syntax:'<number>';inherits:true;initial-value:1}
+@property --z{syntax:'<number>';inherits:true;initial-value:1}
 .hbus{display:none}
 @media (min-width:1000px){
-  .hero{--k:min(tan(atan2(var(--cw),1272px)),tan(atan2(calc(100svh - 146px - 4vh),918px)));justify-content:center;align-items:center;gap:calc(43.9px*var(--k))}
+  :root{--k:min(tan(atan2(var(--cw),1272px)),tan(atan2(calc(100svh - 146px - 4vh),918px)));--z:max(var(--k),.8)}
+  .hero{justify-content:center;align-items:center;gap:calc(43.9px*var(--k))}
   .hero-txt{flex:none;width:661px;zoom:var(--k);align-self:center;padding:33.24px 0 44.32px}
   .h-stage{flex:none;width:calc(552px*var(--k));height:calc(918px*var(--k));max-width:none;min-height:0;--hk:1}
   #h1{font-size:159px}
@@ -973,6 +976,22 @@ footer.end small{display:block;margin-top:1rem;font-weight:400}
   .hbus>svg{width:100%;height:auto;display:block;transform-origin:50% 0;animation:gdf 6s ease-in-out infinite alternate}
   /* a exploradora a sair da borda direita */
   #sobre>.story>.gd.r.k{--w:clamp(200px,17vw,380px);width:var(--w);left:calc(100% - var(--w)*.22);top:72%!important;bottom:auto!important}
+  /* v12c — kits, habilidades, festas, opiniões, história e newsletter com as mesmas margens do topo:
+     o conteúdo ocupa 1272·k (como o topo) e é desenhado à escala do ecrã grande (zoom z = k, nunca abaixo de .8 para ler bem) */
+  #kits,#aprender,#eventos,#opinioes,#sobre,#newsletter{--cw:calc(1272px*var(--k))}
+  #kits>.wrap,#aprender>.wrap,#eventos>.wrap,#opinioes>.wrap,#opinioes>.qs,#sobre>.story>.wrap,#newsletter>.wrap{zoom:var(--z);width:calc(1272px*var(--k)/var(--z));max-width:none;margin-inline:auto;padding-inline:0;--gut:0px;--cw:calc(1272px*var(--k)/var(--z))}
+  .shop .head{column-gap:8.63%}
+  .shop .head>h2{font-size:128px}
+  .grp{column-gap:8.63%}
+  .sab .wrap{column-gap:6.9%}
+  #eventos .ev-col{--evw:250px}
+  .sph{height:700px}
+}
+/* etiquetas das frases presas: sempre inteiras dentro do ecrã */
+@media (min-width:1200px){
+  #porque>.pin-in>.ph:nth-child(4)>.pside>.ptag{left:max(calc(2vw + 7.9em),calc(50% - .47*var(--cw)))}
+  #porque>.pin-in>.ph:nth-child(5)>.pside>.ptag{left:max(calc(2vw + 9em),calc(50% - .494*var(--cw)))}
+  #porque>.pin-in>.ph:nth-child(6)>.pside>.ptag{left:max(calc(2vw + 8.6em),calc(50% - .476*var(--cw)))}
 }
 /* telemóveis grandes e tablets: o grupo do topo não se espalha até às bordas (o telemóvel normal não muda) */
 @media (min-width:480px) and (max-width:999px){
