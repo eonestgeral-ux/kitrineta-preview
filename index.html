@@ -1005,14 +1005,13 @@ footer.end small{display:block;margin-top:1rem;font-weight:400}
 }
 /* abaixo de 1000px o grupo é sempre o do telemóvel (a 390×844 o palco é 375×427 → --m=1, igual ao aprovado) */
 @media (max-width:999px){
-  /* --ctah = metade da fila de botões: as bordas de fora das fotos pequenas e das personagens alinham com o Ver Kits e o Festas e eventos */
-  .h-stage{--m:min(100cqw / 375, 100cqh / 427);--ctah:135px}
-  @media (min-width:760px){.h-stage{--ctah:155px}}
+  /* --ctah = metade da largura do parágrafo (lede): as bordas de fora das fotos pequenas e das personagens alinham com as margens do texto */
+  .h-stage{--m:min(100cqw / 375, 100cqh / 427);--ctah:min(calc(50vw - 28px),240px)}
   @media (min-width:480px){.h-stage{--m:calc(min(100cqw / 375, 100cqh / 427) * 1.05)}}
   #hero .h-stage>.hp,#hero .h-stage>.side-l,#hero .h-stage>.side-r{right:auto;bottom:auto;translate:-50% -50%}
   #hero .h-stage>.hp.big{left:50%;top:calc(50% + 16*var(--m));height:calc(380*var(--m))}
-  #hero .h-stage>.hp.s1{left:calc(50% - var(--ctah) + 75*var(--m));top:calc(50% - 128*var(--m));height:calc(150*var(--m))}
-  #hero .h-stage>.hp.s2{left:calc(50% + var(--ctah) - 71*var(--m));top:calc(50% - 118*var(--m));height:calc(142*var(--m))}
+  #hero .h-stage>.hp.s1{left:calc(50% - var(--ctah) + 83*var(--m));top:calc(50% - 120*var(--m));height:calc(166*var(--m))}
+  #hero .h-stage>.hp.s2{left:calc(50% + var(--ctah) - 79*var(--m));top:calc(50% - 110*var(--m));height:calc(158*var(--m))}
   #hero .h-stage>.side-l{left:calc(50% - var(--ctah) + 72.3*var(--m));top:calc(50% + 101*var(--m));height:calc(225*var(--m))}
   #hero .h-stage>.side-r{left:calc(50% + var(--ctah) - 82.2*var(--m));top:calc(50% + 101*var(--m));height:calc(225*var(--m))}
 }
