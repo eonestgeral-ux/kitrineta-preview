@@ -1022,10 +1022,11 @@ footer.end small{display:block;margin-top:1rem;font-weight:400}
 }
 /* telemóvel: nas frases presas o texto fica a meio do ecrã e a personagem desce para o fundo (fora do fluxo) */
 @media (max-width:999px){
-  .pin .ph>.act{position:absolute;left:0;right:0;margin-inline:auto;width:max-content;bottom:calc(100lvh - 100svh + 10px)}
-  .pin .ph>.duo{position:absolute;left:0;right:0;justify-content:center;bottom:calc(100lvh - 100svh + 10px)}
+  /* o bloco (ícone/número até ao botão) fica exatamente a meio do ecrã visível, por baixo do menu; dvh acompanha a barra do browser */
+  .pin .ph,.walk .ph{bottom:auto;height:100vh;height:100dvh;padding-top:var(--top);padding-bottom:0}
+  .pin .ph>.act{position:absolute;left:0;right:0;margin-inline:auto;width:max-content;bottom:calc(100lvh - 100dvh + 10px)}
+  .pin .ph>.duo{position:absolute;left:0;right:0;justify-content:center;bottom:calc(100lvh - 100dvh + 10px)}
   .walk .ph>.act,.walk .ph:not(.on)>.act{height:clamp(110px,17svh,210px)}
-  .walk .ph{padding-bottom:calc(20px + 4svh)}
 }
 /* Animação das personagens Kitrineta — partes do corpo, personagem fixa no lugar. */
 .ch{display:block;width:100%;height:auto;overflow:visible}
