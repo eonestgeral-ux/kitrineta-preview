@@ -1022,12 +1022,12 @@ footer.end small{display:block;margin-top:1rem;font-weight:400}
 }
 /* telemóvel: nas frases presas o texto fica a meio do ecrã e a personagem desce para o fundo (fora do fluxo) */
 @media (max-width:999px){
-  /* o bloco (ícone/número até ao botão) fica exatamente a meio entre o fim da faixa dos anúncios (34px) e o fundo do ecrã visível; dvh acompanha a barra do browser */
-  .pin .ph,.walk .ph{bottom:auto;height:100vh;height:100dvh;padding-top:34px;padding-bottom:0}
+  /* o bloco (ícone/número até ao botão) fica exatamente a meio entre o fim da faixa dos anúncios (34px) e o fundo do ecrã visível; svh = ecrã com a barra do browser à mostra; é fixo (com dvh o texto saltava quando a barra aparecia) */
+  .pin .ph,.walk .ph{bottom:auto;height:100vh;height:100svh;padding-top:34px;padding-bottom:0}
   /* as personagens passam à frente do texto e dos botões */
   .pin .ph>.act,.pin .ph>.duo{z-index:6}
-  .pin .ph>.act{position:absolute;left:0;right:0;margin-inline:auto;width:max-content;bottom:calc(100lvh - 100dvh + 10px)}
-  .pin .ph>.duo{position:absolute;left:0;right:0;justify-content:center;bottom:calc(100lvh - 100dvh + 10px)}
+  .pin .ph>.act{position:absolute;left:0;right:0;margin-inline:auto;width:max-content;bottom:calc(100lvh - 100svh + 10px)}
+  .pin .ph>.duo{position:absolute;left:0;right:0;justify-content:center;bottom:calc(100lvh - 100svh + 10px)}
   .walk .ph>.act,.walk .ph:not(.on)>.act{height:clamp(110px,17svh,210px)}
 }
 /* Animação das personagens Kitrineta — partes do corpo, personagem fixa no lugar. */
@@ -3092,11 +3092,12 @@ document.documentElement.classList.add('js');
   var pins = $$('.pin').filter(function(el){ return el !== gal; }).map(function(el){ return {el:el, ph:$$('.ph', el), dots:$$('.dots i', el), idx:-1, walk:el.classList.contains('walk')}; });
   var fox = $('#foxrun');
   var sls = $$('.sl'), boat = $('#boat'), sky = $('.sky'), hps = $$('.hero .hp'), gIdx = -1;
-  var vh = innerHeight, tick = false;
+  // PH = altura das secções presas (100lvh): não muda quando a barra do browser aparece/desaparece, ao contrário de innerHeight
+  var vh = innerHeight, tick = false, pin0 = $('.pin-in'), PH = pin0 ? pin0.offsetHeight : vh;
   function frame(){
     tick = false; var W = innerWidth;
     pins.forEach(function(o){ var r = o.el.getBoundingClientRect(); if(r.bottom < -vh || r.top > 2 * vh) return;
-      var n = o.ph.length, p = clamp(-r.top / (r.height - vh), 0, 1), idx = Math.min(n - 1, Math.floor(p * n));
+      var n = o.ph.length, p = clamp(-r.top / (r.height - PH), 0, 1), idx = Math.min(n - 1, Math.floor(p * n));
       o.el.style.setProperty('--sp', p.toFixed(3));
       // personagens que atravessam o ecrã da direita para a esquerda, ao ritmo do scroll
       if(o.walk) o.ph.forEach(function(e, i){ var u = clamp((p * n - i) * 2 - 1, -1, 1); e.style.setProperty('--run', RM ? 0 : ((u < 0 ? 1 : -1) * Math.pow(Math.abs(u), 1.6)).toFixed(3)); });
@@ -3106,7 +3107,7 @@ document.documentElement.classList.add('js');
     });
     var gr = gal.getBoundingClientRect();
     if(gr.bottom > -vh && gr.top < 2 * vh && GL){
-      var gp = clamp(-gr.top / (gr.height - vh), 0, 1), gn = gws.length, f = gp * (gn - 1);
+      var gp = clamp(-gr.top / (gr.height - PH), 0, 1), gn = gws.length, f = gp * (gn - 1);
       var gi = Math.min(gn - 1, Math.round(f)), sc = gsea.clientWidth / 1000;
       gws.forEach(function(g, i){
         var x = RM ? (i === gi ? (W - GT[i]) / 2 : W + 40) : slide(f - i, GT[i], W), cx = (x + GWW[i] / 2) / sc;
@@ -3132,7 +3133,7 @@ document.documentElement.classList.add('js');
   measure(); if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ measure(); req(); });
   addEventListener('scroll', req, {passive:true});
   addEventListener('load', function(){ measure(); req(); });
-  addEventListener('resize', function(){ vh = innerHeight; measure(); req(); });
+  addEventListener('resize', function(){ vh = innerHeight; PH = pin0 ? pin0.offsetHeight : vh; measure(); req(); });
   frame();
 })();
 </script>
